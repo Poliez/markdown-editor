@@ -10,7 +10,7 @@ CREATE TABLE User(
     Name VARCHAR(70) NOT NULL,
     Surname VARCHAR(70) NOT NULL,
     Username VARCHAR(20) NOT NULL,
-    PasswordHash VARCHAR(50) NOT NULL,
+    PasswordHash VARCHAR(60) NOT NULL,
     RegistrationDate DATETIME NOT NULL,
     Deleted BIT NOT NULL DEFAULT 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
