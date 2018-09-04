@@ -1,19 +1,19 @@
 "use strict";
 
-function showLoginForm(formId) {
-
-    if (typeof formId == "undefined")
-        formId = "loginform";
-
-    changeElementDisplayStyle(formId, "block");
+function showLoginForm() {
+    changeElementDisplayStyle("loginform", "block");
 }
 
-function hideLoginForm(formId) {
+function hideLoginForm() {
+    changeElementDisplayStyle("loginform", "none");
+}
 
-    if (typeof formId == "undefined")
-        formId = "loginform";
+function showRegistrationForm() {
+    changeElementDisplayStyle("registrationform", "block");
+}
 
-    changeElementDisplayStyle(formId, "none");
+function hideRegistrationForm() {
+    changeElementDisplayStyle("registrationform", "none");
 }
 
 function changeElementDisplayStyle(elementId, displayStyle) {
