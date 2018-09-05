@@ -36,7 +36,7 @@
             <div class="container">
                 <h3 class="loginHead">Effettua il Login</h3>
                 <span onclick="hideLoginForm()" class="close" title="Chiudi">&times;</span>
-                <input type="text" placeholder="Nome Utente" name="username" required />
+                <input id="userinput" type="text" placeholder="Nome Utente" name="username" required />
                 <input type="password" placeholder="Password" name="password" required />
                 
                 <ul class="horizontal">
@@ -58,7 +58,7 @@
             <div class="container">
                 <h3 class="loginHead">Registrati!</h3>
                 <span onclick="hideRegistrationForm()" class="close" title="Chiudi">&times;</span>
-                <input type="text" placeholder="Nome" name="name" required />
+                <input id="nameinput" type="text" placeholder="Nome" name="name" required />
                 <input type="text" placeholder="Cognome" name="surname" required />
                 <input type="text" placeholder="Nome Utente" name="username" required />
                 <input type="text" placeholder="Email" name="email" required />

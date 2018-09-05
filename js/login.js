@@ -2,6 +2,7 @@
 
 function showLoginForm() {
     changeElementDisplayStyle("loginform", "block");
+    document.getElementById("userinput").focus();
 }
 
 function hideLoginForm() {
@@ -10,6 +11,7 @@ function hideLoginForm() {
 
 function showRegistrationForm() {
     changeElementDisplayStyle("registrationform", "block");
+    document.getElementById("nameinput").focus();
 }
 
 function hideRegistrationForm() {
