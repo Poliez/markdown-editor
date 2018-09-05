@@ -15,10 +15,10 @@
 			if(!isset($_COOKIE[$this->user_cookie_name]))
 				return false;
 
-		    list($c_username, $cookie_hash) = split(',', $_COOKIE[$this->user_cookie_name]);
+		    list($c_username, $cookie_hash) = explode(',', $_COOKIE[$this->user_cookie_name]);
 
 		    if (md5($c_username.$this->secret_word) == $cookie_hash)
-		        return true;
+		        return $c_username;
 
 			return false;
 		}

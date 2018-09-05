@@ -7,7 +7,7 @@
 
 	function isLogged(){		
 		if(isset($_SESSION['userId']))
-			return $_SESSION['userId']
+			return $_SESSION['userId'];
 		
 		return false;
 	}

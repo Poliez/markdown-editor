@@ -1,5 +1,5 @@
 <?php  
-	require "dbConfig.php";
+	require_once "dbConfig.php";
     
     $db = new MarkdownDbManager();
 
@@ -49,6 +49,10 @@
 				$this->mysqli_conn->close();
 			
 			$this->mysqli_conn = null;
+		}
+
+		function createStatement($query){
+			return $this->mysqli_conn->prepare($query);
 		}
 	}
 

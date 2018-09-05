@@ -1,7 +1,12 @@
 <?php
-	require_once "./php/util/cookieManager.php";
+	require_once "./util/cookieManager.php";
+	require_once "./util/navigationUtil.php";
 
     $cookieManager->deleteUserCookie();
-    header("Location: ");
+
+	session_unset(); 
+	session_destroy(); 
+	
+    goHome();
     exit;
 ?>
