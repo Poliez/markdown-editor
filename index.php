@@ -1,9 +1,17 @@
 <?php
     require_once "./php/util/cookieManager.php";
     require_once "./php/util/navigationUtil.php";
+    require_once "./php/util/sessionUtil.php";
+    require_once "./php/util/markdownDb.php";
 
-    if ($cookieManager->checkUserCookie()){
+    if ($username = $cookieManager->checkUserCookie()){
         session_start();
+
+        setSession(
+            $username, 
+            getUserId($username)
+        );
+
         goToEditor();
     }
 
@@ -54,16 +62,16 @@
 
     <!-- Registration Modal -->
     <div id="registrationform" class="modal">
-        <form class="modal-content animate" action="php/register.php" method="post">
+        <form class="modal-content animate" action="php/registration.php" method="post">
             <div class="container">
                 <h3 class="loginHead">Registrati!</h3>
                 <span onclick="hideRegistrationForm()" class="close" title="Chiudi">&times;</span>
                 <input id="nameinput" type="text" placeholder="Nome" name="name" required />
                 <input type="text" placeholder="Cognome" name="surname" required />
                 <input type="text" placeholder="Nome Utente" name="username" required />
-                <input type="text" placeholder="Email" name="email" required />
-                <input type="password" placeholder="Password" name="password" required />
-                <input type="password" placeholder="Conferma Password" name="confirm" required />
+                <input type="text" placeholder="Email" name="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" title="Devi inserire un indirizzo email valido."required />
+                <input id="password" type="password" placeholder="Password" name="password" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!-/:-@\[-`{-~])[A-Za-zÀ-ÿ\d!-/:-@\[-`{-~]{8,32}" title="La password deve contenere da 8 a 32 caratteri, tra cui almeno una lettera maiuscola, almeno un carattere speciale e almeno un numero." required />
+                <input id="confirm" type="password" placeholder="Conferma Password" name="confirm" required />
                 <button type="submit">Registrati</button>
             </div>
             <div class="container" style="background-color:#f1f1f1">

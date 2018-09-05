@@ -29,10 +29,29 @@ function changeElementDisplayStyle(elementId, displayStyle) {
     document.getElementById(elementId).style.display = displayStyle;
 }
 
-var modalForm = document.getElementById("loginform");
+window.onload = function(event){
+    var loginForm = document.getElementById("loginform");
+    var registrationForm = document.getElementById("registrationform");
 
-window.onclick = function(event) {
-    if (event.target == modalForm) {
-        modalForm.style.display = "none";
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm");
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    window.onclick = function(event) { 
+        if(event.target == loginForm)
+            loginForm.style.display = "none";
+        if(event.target == registrationForm)
+            registrationForm.style.display = "none";
+    }
+
+    function validatePassword(){
+        if(password.value != confirm_password.value){
+            confirm_password.setCustomValidity("Le password sono diverse.");
+            return;
+        }
+        
+        confirm_password.setCustomValidity('');
     }
 }
