@@ -1,0 +1,70 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    color: #333;
+    font: 14px Sans-Serif;
+    padding: 50px;
+    background: #eee;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px 0 12px 0;
+    margin: 0;
+}
+
+h2 {
+    font-size: 16px;
+    text-align: center;
+    padding: 0 0 12px 0;
+}
+
+#docs {
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    background: white;
+}
+
+div.folder {
+    padding-left: 15px;
+    line-height: 30px;
+}
+
+div.folder:before {
+    content: "\25B9";
+    position: absolute;
+    margin-left: -13px;
+}
+
+div.dir {
+    padding-left: 15px;
+    margin-left: -15px;
+}
+
+div.file {
+    padding-left: 30px;
+    margin-left: -15px;
+}
+
+div.dir:hover,
+div.file:hover {
+    background-color: #CACACA;
+}
+
+div.explorer {
+    background-color: #F3F3F3;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+}
+
+div.file:nth-of-type(odd) {
+    background-color: #E6E6E6;
+}
+
+div.file:nth-of-type(odd):hover {
+    background-color: #AAAAAA;
+}
