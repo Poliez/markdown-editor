@@ -10,27 +10,36 @@
 			$db->createStatement(
 				"SELECT * ".
 				"FROM User ".
-				"WHERE ( Username = ? OR Email = ?) ".
-				"AND PasswordHash = ? "
+				"WHERE ( Username = ? OR Email = ?) "
 			);
 
+		$pass_hash = password_hash($password, PASSWORD_BCRYPT);
+
 		$statement->bind_param(
-			"sss",
+			"ss",
 			$username,
-			$username, 
-			password_hash($password, PASSWORD_BCRYPT)
+			$username
 		);
+
+		$statement->execute();
 
 		$result = $statement->get_result();
 
-		if($result->num_rows === 0)
-			return false;
-
-		// $userRow = $result->fetch_assoc();
+		$nrows = $result->num_rows;
+		
+		if(!$nrows){
+			$statement->close();
+			return 0;
+		}
 
 		$statement->close();
 
-		return true;
+		$user = $result->fetch_object();
+
+		if(password_verify($password, $user->PasswordHash))
+			return $user->Id;
+		
+		return 0;
 	}
 
 	function registerUser($name, $surname, $username, $email, $password){
