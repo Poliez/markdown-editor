@@ -51,7 +51,7 @@
 		exit;
 	}
 
-	$check = 
+	$userId = 
 		registerUser(
 			$name, 
 			$surname, 
@@ -60,8 +60,9 @@
 			$password
 		);
 
-	if($check){
+	if($userId){
 		session_start();
+		setSession($userId, $username);
 		$cookieManager->setUserCookie($username);
 		goToEditor();
 		exit;
