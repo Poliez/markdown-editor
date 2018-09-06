@@ -54,6 +54,10 @@
 		function createStatement($query){
 			return $this->mysqli_conn->prepare($query);
 		}
+
+		function getLastId(){
+			return $this->mysqli_conn->insert_id;
+		}
 	}
 
 ?>
