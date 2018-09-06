@@ -31,5 +31,5 @@ CREATE TABLE Document(
     Markdown TEXT,
     Deleted BIT NOT NULL DEFAULT 0,
     
-    FOREIGN KEY (IdFolder) REFERENCES User(Id)
+    FOREIGN KEY (IdFolder) REFERENCES Folder(Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -194,8 +194,7 @@
 		$nfolders = count($folders);
 		$doc = $result->fetch_object("Document");
 		for($i = 0; $i < $nfolders; $i++){
-			while($doc->IdFolder == $folders[$i]->Id){
-				throw new Exception("YUP2");
+			while($doc !== null && $doc->IdFolder == $folders[$i]->Id){
 				$folders[$i]->Documents[] = $doc;
 				$doc = $result->fetch_object("Document");
 			}
