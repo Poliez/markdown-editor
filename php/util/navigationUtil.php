@@ -1,15 +1,15 @@
 <?php
 
 	function goToEditor(){
-		header('Location: ./editor.php');
+		header('Location: /php/editor.php');
 	}
 
 	function goHome(){
-		header('Location: ./../../index.php');
+		header('Location: /');
 	}
 
 	function goHomeWithError($errorMessage){
-		header("Location: ./../index.php?errorMessage=" . $errorMessage );
+		header("Location: /?errorMessage=" . $errorMessage );
 	}
 
 ?>
