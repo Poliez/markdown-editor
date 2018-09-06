@@ -1,15 +1,9 @@
 <?php
-	
-	function setSession($username, $userId){
-		$_SESSION['userId'] = $userId;
-		$_SESSION['username'] = $username;
-	}
+	session_start();
 
-	function isLogged(){		
-		if(isset($_SESSION['userId']))
-			return $_SESSION['userId'];
-		
-		return false;
+	function setSession($userId, $username){
+		$_SESSION["username"] = $username;
+		$_SESSION["userId"] = $userId;
 	}
 
 ?>

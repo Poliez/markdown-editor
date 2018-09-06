@@ -7,10 +7,11 @@
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	
-	$errorMessage = authenticateUser($username, $password);
-	
-	if($errorMessage === null){
+	$userId = authenticateUser($username, $password);
+	echo $userId;
+	if($userId){
 		session_start();
+		setSession($userId, $username);
 		$cookieManager->setUserCookie($username);
 		goToEditor();
 		exit;

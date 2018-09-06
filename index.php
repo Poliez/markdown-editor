@@ -8,8 +8,8 @@
         session_start();
 
         setSession(
-            $username, 
-            getUserId($username)
+            getUserId($username),
+            $username
         );
 
         goToEditor();
