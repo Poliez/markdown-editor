@@ -69,21 +69,7 @@
 		if($nrows === 0) 
 			return 0;
 		
-		$statement =
-			$db->createStatement(
-				"INSERT INTO Folder (IdUser, Name) ".
-				"VALUES (?, 'I Miei Documenti')"
-			);
-
-		$statement->bind_param(
-			"i",
-			$userId
-		);
-
-		$statement->execute();
-
-		$nrows = $statement->affected_rows;
-		$statement->close();
+		$nrows = createFolder($userId, "I Miei Documenti");
 		
 		if($nrows === 0)
 			return 0;
@@ -131,6 +117,7 @@
 				"SELECT * ".
 				"FROM Folder ".
 				"WHERE IdUser = ? ".
+				"AND Deleted = 0 ".
 				"ORDER BY Id"
 			);
 
@@ -172,6 +159,7 @@
 				"SELECT D.* ".
 				"FROM Document D INNER JOIN Folder F ON D.IdFolder = F.Id ".
 				"WHERE F.IdUser = ? ".
+				"AND D.Deleted = 0 ".
 				"ORDER BY D.IdFolder"
 			);
 
@@ -205,4 +193,123 @@
 		return $folders;
 	}
 
+	function createFolder($userId, $folderName){
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"INSERT INTO Folder (IdUser, Name) ".
+				"VALUES (?, ?)"
+			);
+
+		$statement->bind_param(
+			"is",
+			$userId,
+			$folderName
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
+
+	function createDocument($userId, $folderId, $documentName) {
+		global $db;
+
+		if(is_null($folderId)) {
+			$statement =
+				$db->createStatement(
+					"SELECT F.* ".
+					"FROM User U INNER JOIN Folder F ON U.Id = F.IdUser ".
+					"WHERE F.Name = 'I Miei Documenti'".
+					"AND U.Id = ? ".
+					"AND F.Deleted = 0 " 
+				);
+
+			$statement->bind_param(
+				"i",
+				$userId
+			);
+
+			$statement->execute();
+
+			$result = $statement->get_result();
+			$nrows = $result->num_rows;
+
+			$statement->close();
+
+			if(!$nrows)
+				throw new Exception("Cartella 'I Miei Documenti' non trovata!");
+			
+			$folderId = $result->fetch_assoc()["Id"];
+		}
+
+		$statement =
+			$db->createStatement(
+				"INSERT INTO Document (IdFolder, Name) ".
+				"VALUES (?, ?)"
+			);
+
+		$statement->bind_param(
+			"is",
+			$folderId,
+			$documentName
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
+
+	function deleteDocument($documentId) {
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"UPDATE Document ".
+				"SET Deleted = 1 ".
+				"WHERE Id = ?"
+			);
+
+		$statement->bind_param(
+			"i",
+			$documentId
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
+
+	function deleteFolder($folderId) {
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"UPDATE Folder ".
+				"SET Deleted = 1 ".
+				"WHERE Id = ?"
+			);
+
+		$statement->bind_param(
+			"i",
+			$folderId
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
 ?>
