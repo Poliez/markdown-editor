@@ -1,0 +1,108 @@
+* {
+    padding: 0;
+    margin: 0;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+body {
+    color: #333;
+    font: 14px Sans-Serif;
+    background: #eee;
+    height: 90vh;
+    padding: 5vh;
+}
+
+h3 {
+    text-align: center;
+    padding: 20px 0 12px 0;
+    margin: 0;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.editor-element {
+    box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    position: relative;
+    background: white;
+    display: inline-block;
+    float: left;
+    height: 90vh;
+}
+
+aside {
+    width: 13vw;
+    overflow: auto;
+}
+
+.writing {
+    margin-left: 1vh;
+    width: 41vw;
+    font-size: 14pt;
+}
+
+.markdown {
+    background-color: rgba(0, 0, 0, 0.05); 
+}
+
+textarea {
+    outline: none;
+    border-style: hidden;
+    resize: none;
+    padding: 2vh;
+}
+
+div.folder {
+    padding-left: 15px;
+    line-height: 30px;
+}
+
+div.folder:before {
+    content: "\25B9";
+    position: absolute;
+    margin-left: -13px;
+}
+
+div.dir {
+    background-color: rgba(0, 0, 0, 0.20);
+    padding-left: 15px;
+    margin-left: -15px;
+}
+
+div.file {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding-left: 30px;
+    margin-left: -15px;
+}
+
+div.dir:hover,
+div.file:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+#explorer {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+div.explorer-operations {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.operation {
+    margin: 2vh;
+}
+
+div.file:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+div.file:nth-of-type(odd):hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
