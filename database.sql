@@ -33,3 +33,13 @@ CREATE TABLE Document(
     
     FOREIGN KEY (IdFolder) REFERENCES Folder(Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DELIMITER ::
+CREATE TRIGGER CheckMainFolderDeletion BEFORE UPDATE ON Folder
+FOR EACH ROW
+BEGIN
+    IF (NEW.Name = 'I Miei Documenti' AND NEW.Deleted = 1) THEN
+        SIGNAL SQLSTATE '01000';
+    END IF;
+END::
+DELIMITER ;
