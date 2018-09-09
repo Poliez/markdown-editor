@@ -267,6 +267,30 @@
 		return $nrows;
 	}
 
+	function updateDocumentName($documentId, $newName) {
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"UPDATE Document ".
+				"SET Name = ? ".
+				"WHERE Id = ?"
+			);
+
+		$statement->bind_param(
+			"si",
+			$newName,
+			$documentId
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
+
 	function deleteDocument($documentId) {
 		global $db;
 
@@ -290,6 +314,30 @@
 		return $nrows;
 	}
 
+	function updateFolderName($folderId, $newName) {
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"UPDATE Folder ".
+				"SET Name = ? ".
+				"WHERE Id = ? AND Name <> 'I Miei Documenti' "
+			);
+
+		$statement->bind_param(
+			"si",
+			$newName,
+			$folderId
+		);
+
+		$statement->execute();
+
+		$nrows = $statement->affected_rows;
+		$statement->close();
+
+		return $nrows;
+	}
+
 	function deleteFolder($folderId) {
 		global $db;
 
@@ -297,7 +345,7 @@
 			$db->createStatement(
 				"UPDATE Folder ".
 				"SET Deleted = 1 ".
-				"WHERE Id = ?"
+				"WHERE Id = ? AND Name <> 'I Miei Documenti' "
 			);
 
 		$statement->bind_param(
