@@ -5,6 +5,7 @@ var selectedElementId = undefined;
 var selectedColor = undefined;
 var selectedIsFolder = undefined;
 var selectedDocumentId = undefined;
+var selectedFileName = "Guida";
 
 function showHideFolder(folder, contentId) {
     var elem = document.getElementById(contentId);
@@ -26,6 +27,7 @@ function showHideFolder(folder, contentId) {
 
 function selectFile(file, fileId) {
 	selectedDocumentId = fileId;
+	selectedFileName = file.textContent;
 	setElementParams(false, fileId);
 	selectElem(file);
 	
@@ -69,6 +71,7 @@ function refreshExplorer(explorerText){
 	selectedElementId = undefined;
 	selectedIsFolder = undefined;
 	selectedDocumentId = undefined;
+	selectedFileName = "Guida";
 
 	resetTextArea();
 }
@@ -76,7 +79,9 @@ function refreshExplorer(explorerText){
 function resetTextArea() {
 	var textArea = document.getElementById("writing-area");
 	textArea.disabled = true;
-	textArea.value = "# Eccoti nell'editor!\nSeleziona un documento per cominciare a scrivere.\n\n*Se ancora non hai documenti puoi crearne uno selezionando ![Aggiungi Documento](./../images/add-note.svg)*";
+	textArea.value = "# Guida\n**Realtime markdown editor** ti consente di scrivere con un *subset* del markup [markdown](http://https://daringfireball.net/projects/markdown/syntax) e vederne il risultato in HTML in tempo reale!\n\nNonostante l'editor converta soltanto un subset del markup markdown è possibile fare svariate cose:\n* Puoi fare liste non ordinate\n* Puoi scrivere del testo **in grassetto**, *in corsivo*, in entrambe le ***modalità***... *Ma **non** necessariamente **contemporaneamente***\nOvviamente non possono mancare:\n1. Le liste ordinate.\n2. I blocchi di `codice inline`\n\n```\nPuoi anche includere blocchi di testo \npreformattato. Magari può servirti per scrivere del codice indentato!\nThe Zen of Python:\n    >>> import this\n    Beautiful is better than ugly.\n    Explicit is better than implicit.\n    Simple is better than complex.\n    Complex is better than complicated.\n    [ . . . ]\n```\n\nCon un click sopra l'icona ![Nuova cartella](./../images/create-new-folder.svg) avrai la possibilità di creare una cartella.\nTi verrà mostrata una finestra di dialogo in cui inserire il nome della nuova cartella.\n\nCon un click sopra l'icona ![Nuovo documento](./../images/add-note.svg) avrai la possibilità di creare un nuovo documento.\nAnche in questo caso ti verrà mostrata una finestra di dialogo in cui inserire il nome del nuovo documento.\n\n\nCon un click sopra l'icona ![Modifica](./../images/edit.svg) avrai la possibilità di cambiare il nome di un elemento, che potrai inserire all'interno di una finestra di dialogo.\n\nCon un click sopra l'icona ![Scarica](./../images/save.svg) potrai scaricare il risultato della conversione.\nPuoi pure provarci subito! Scaricherai il contenuto di questa guida!\n\nCon un click sopra l'icona ![Logout](./../images/logout.svg) potrai effettuare il logout.\n\nInfine, cliccando sull'icona ![Cestino](./../images/delete.svg) avrai la possibilità di eliminare l'elemento selezionato.\nNon preoccuparti! Ti verrà sempre chiesta la conferma prima di eliminare un tuo oggetto!\n**N.B.**: Eliminando una cartella eliminerai anche il suo contenuto!";
+
+	updateConverted();
 }
 
 function newFolder(folderName) {
@@ -128,9 +133,31 @@ function newDocument(documentName) {
 	request.send();
 }
 
-// function editName() {
-// 
-// }
+function editName(newName) {
+	var request = new XMLHttpRequest();
+
+	request.onreadystatechange = function () {
+		if (this.readyState != 4 || this.status != 200)
+			return;
+
+		refreshExplorer(this.responseText);
+	};
+
+	request
+		.open(
+			"GET", 
+			"explorer.php?editName="
+				+ encodeURIComponent(newName) 
+				+ (typeof selectedIsFolder != "undefined" && selectedIsFolder 
+					? "&folderId="
+					: "&documentId=") + selectedElementId
+				+ "&preventCache=" 
+				+ Math.random(),
+			true
+		);
+
+	request.send();
+}
 
 function deleteDocument() {
 	if(typeof selectedElementId == "undefined")
@@ -178,6 +205,7 @@ function hideRequest() {
 
 var isCreatingFolder = false;
 var isCreatingDocument = false;
+var isEditing = false;
 
 function showRequest(title, type) {
 	var modalTitle = document.getElementById("modal-title");
@@ -185,6 +213,7 @@ function showRequest(title, type) {
 
 	isCreatingDocument 	= type === "document";
 	isCreatingFolder 	= type === "folder";
+	isEditing			= type === "edit";
 
 	changeElementDisplayStyle("requestmodal", "block");
 }
@@ -198,6 +227,29 @@ function executeExplorerOperation() {
 	if(isCreatingDocument)
 		newDocument(name);
 
+	if(isEditing)
+		editName(name);
+
 	hideRequest();
 	document.getElementById("name-field").value = "";
+}
+
+function saveHtml() {
+
+	var htmlContainer = document.getElementById("converted-container");
+
+	var html = 
+		"<!doctype html><html><head><title>"
+		+ selectedFileName 
+		+ "</title></head><body>" 
+		+ htmlContainer.innerHTML
+		+ "</body></html>";
+
+	var blob = 
+		new Blob(
+			[html]
+			,{type: "text/html;charset=utf-8"}
+		);
+
+	saveAs(blob, selectedFileName + ".html");
 }

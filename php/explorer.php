@@ -35,6 +35,16 @@
             deleteDocument($elementId);
     }
 
+    if(isset($_GET["editName"])) {
+        $editName = $_GET["editName"];
+
+        if(isset($_GET["folderId"]))
+            updateFolderName($_GET["folderId"], $editName);
+
+        if(isset($_GET["documentId"]))
+            updateDocumentName($_GET["documentId"], $editName);
+    }
+
     $folders = getFoldersWithDocuments($userId);
 
     $nfolders = count($folders);
