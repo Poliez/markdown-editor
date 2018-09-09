@@ -1,10 +1,49 @@
 <!-- Info Modal -->
 <div id="infomodal" class="modal">
-    <div class="modal-content animate info" >
+    <div class="modal-content animate info">
         <div class="container">
-            <h2 class="loginHead"><img src="./../images/info.svg" alt="info"/></h2>
             <span onclick="hideInfoModal()" class="close" title="Chiudi">&times;</span>
-            <p>Write Info Here!</p>
+            <div class="marked">
+                <h1 class="marked">Guida <img src="./../images/info.svg" alt="info"/></h1>
+                <p class="marked"><strong>Realtime markdown editor</strong> ti consente di scrivere con un <em>subset</em> del markup <a class="marked" href="http://https://daringfireball.net/projects/markdown/syntax">markdown</a> e vederne il risultato in HTML in tempo reale!</p>
+                <br>
+                <p class="marked">Nonostante l'editor converta soltanto un subset del markup markdown è possibile fare svariate cose:</p>
+                <ul class="marked">
+                    <li class="marked inul">Puoi fare liste non ordinate</li>
+                    <li class="marked inul">Puoi scrivere del testo <strong>in grassetto</strong>, <em>in corsivo</em>, in entrambe le <strong><em>modalità</em></strong>... <em>Ma <strong>non</strong> necessariamente <strong>contemporaneamente</strong></em></li>
+                </ul>
+                <p class="marked">Ovviamente non possono mancare:</p>
+                <ol class="marked">
+                    <li class="marked inol">Le liste ordinate.</li>
+                    <li class="marked inol">I blocchi di <code class="marked">codice inline</code></li>
+                </ol>
+                <br>
+                <div class="pre-container"><pre class="marked">Puoi anche includere blocchi di testo 
+preformattato. Magari può servirti per scrivere del codice indentato!
+The Zen of Python:
+    &gt;&gt;&gt; import this
+    Beautiful is better than ugly.
+    Explicit is better than implicit.
+    Simple is better than complex.
+    Complex is better than complicated.
+    [ . . . ]</pre></div>
+                <br>
+                <p class="marked">Con un click sopra l'icona <img src="./../images/create-new-folder.svg" alt="Nuova cartella"> avrai la possibilità di creare una cartella.</p>
+                <p class="marked">Ti verrà mostrata una finestra di dialogo in cui inserire il nome della nuova cartella.</p>
+                <br>
+                <p class="marked">Con un click sopra l'icona <img src="./../images/add-note.svg" alt="Nuovo documento"> avrai la possibilità di creare un nuovo documento.</p>
+                <p class="marked">Anche in questo caso ti verrà mostrata una finestra di dialogo in cui inserire il nome del nuovo documento.</p>
+                <br>
+                <p class="marked">Con un click sopra l'icona <img src="./../images/edit.svg" alt="Modifica"> avrai la possibilità di cambiare il nome di un elemento, che potrai inserire all'interno di una finestra di dialogo.</p>
+                <br>
+                <p class="marked">Con un click sopra l'icona <img src="./../images/save.svg" alt="Scarica"> potrai scaricare il risultato della conversione.</p>
+                <br>
+                <p class="marked">Con un click sopra l'icona <img src="./../images/logout.svg" alt="Logout"> potrai effettuare il logout.</p>
+                <br>
+                <p class="marked">Infine, cliccando sull'icona <img src="./../images/delete.svg" alt="Cestino"> avrai la possibilità di eliminare l'elemento selezionato.</p>
+                <p class="marked">Non preoccuparti! Ti verrà sempre chiesta la conferma prima di eliminare un tuo oggetto!</p>
+                <p class="marked"><strong>N.B.</strong>: Eliminando una cartella eliminerai anche il suo contenuto!</p>
+            </div>
         </div>
     </div>
 </div>
