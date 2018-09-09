@@ -118,3 +118,19 @@ div.file:nth-of-type(odd) {
 div.file:nth-of-type(odd):hover {
     background-color: rgba(0, 0, 0, 0.03);
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
