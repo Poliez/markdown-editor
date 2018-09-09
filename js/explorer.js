@@ -4,6 +4,7 @@ var selectedElement = undefined;
 var selectedElementId = undefined;
 var selectedColor = undefined;
 var selectedIsFolder = undefined;
+var selectedDocumentId = undefined;
 
 function showHideFolder(folder, contentId) {
     var elem = document.getElementById(contentId);
@@ -24,6 +25,7 @@ function showHideFolder(folder, contentId) {
 }
 
 function selectFile(file, fileId) {
+	selectedDocumentId = fileId;
 	setElementParams(false, fileId);
 	selectElem(file);
 }

@@ -40,31 +40,39 @@
     $nfolders = count($folders);
 
     for($i = 0; $i < $nfolders; $i++) {
-        
+        global $firstDocId;
+        global $firstDocMarkdown;
+
         echo "<div class='folder'>";
 
-            $id = $folders[$i]->Id;
+        $id = $folders[$i]->Id;
 
+        printTd(
+            $folders[$i]->Name,
+            "dir",
+            "showHideFolder(this, \"folder$id\")"
+        );
+
+        echo "<div id='folder$id' class='folder-content'>";
+
+        $docs = $folders[$i]->Documents;
+
+        if($i == 0){
+            $firstDocId = $docs[0]->Id;
+            $firstDocMarkdown = $docs[0]->Markdown;
+        }
+
+        $ndocs = count($docs);
+        for($j = 0; $j < $ndocs; $j++) {
+            $docId = $docs[$j]->Id;
             printTd(
-                    $folders[$i]->Name,
-                    "dir",
-                    "showHideFolder(this, \"folder$id\")"
-                );
-            
-            echo "<div id='folder$id' class='folder-content'>";
+                $docs[$j]->Name,
+                "file",
+                "selectFile(this, $docId);downloadSelectedDocument($docId);" . ($i == 0 && $j == 0 ? "' id='firstDoc" : "") 
+            );
+        }
 
-                $docs = $folders[$i]->Documents;
-                $ndocs = count($docs);
-                for($j = 0; $j < $ndocs; $j++) {
-                    $docId = $docs[$j]->Id;
-                    printTd(
-                        $docs[$j]->Name,
-                        "file",
-                        "selectFile(this, $docId)"
-                    );
-                }
-
-            echo "</div>";
+        echo "</div>";
         echo "</div>";
     }
 
