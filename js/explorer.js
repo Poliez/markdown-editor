@@ -28,7 +28,11 @@ function selectFile(file, fileId) {
 	selectedDocumentId = fileId;
 	setElementParams(false, fileId);
 	selectElem(file);
-	document.getElementById("writing-area").disabled = false;
+	
+	var area = document.getElementById("writing-area");
+	
+	if(area)
+		area.disabled = false;
 }
 
 function setElementParams(isFile, fileId){
@@ -196,21 +200,4 @@ function executeExplorerOperation() {
 
 	hideRequest();
 	document.getElementById("name-field").value = "";
-}
-
-window.onload = function(event){
-    var requestmodal = document.getElementById("requestmodal");
-    var infomodal = document.getElementById("infomodal");
-    var deletemodal = document.getElementById("deletemodal");
-
-    window.onclick = function(event) { 
-        if(event.target == requestmodal)
-            requestmodal.style.display = "none";
-
-        if(event.target == infomodal)
-            infomodal.style.display = "none";
-
-        if(event.target == deletemodal)
-            deletemodal.style.display = "none";
-    }
 }

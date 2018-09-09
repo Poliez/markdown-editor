@@ -1,11 +1,14 @@
 "use strict";
 
 var manager = new TimedFunctionExecutionManager(uploadText);
+var markdownProcessor = new MarkdownProcessor();
 
 function timedUpload(text, documentId) {
 
     if(typeof documentId == "undefined")
         return;
+
+    updateConverted();
 
     manager.startTimer(
         text,
@@ -77,4 +80,30 @@ function setEditorText(text) {
 	var textArea = document.getElementById("writing-area"); 
 
 	textArea.value = text;
+}
+
+function updateConverted() {
+    var textArea = document.getElementById("writing-area");
+    var htmlContainer = document.getElementById("converted-container");
+
+    htmlContainer.innerHTML = markdownProcessor.convertToHtml(textArea.value);
+}
+
+window.onload = function(event){
+    var requestmodal = document.getElementById("requestmodal");
+    var infomodal = document.getElementById("infomodal");
+    var deletemodal = document.getElementById("deletemodal");
+
+    window.onclick = function(event) { 
+        if(event.target == requestmodal)
+            requestmodal.style.display = "none";
+
+        if(event.target == infomodal)
+            infomodal.style.display = "none";
+
+        if(event.target == deletemodal)
+            deletemodal.style.display = "none";
+    }
+
+    updateConverted();
 }
