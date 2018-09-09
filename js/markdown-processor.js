@@ -33,9 +33,9 @@ function MarkdownProcessor(){
     }
 
     function handleEmphasizedAndStrong(text) {
-    	var bothRegex = /\*\*\*(.*?)\*\*\*/gm;
-    	var strongRegex = /\*\*(.*?)\*\*/gm;
-    	var emphasizedRegex = /\*(.*?)\*/gm;
+    	var bothRegex = /\*\*\*(?![\s])(.*?)\*\*\*/gm;
+    	var strongRegex = /\*\*(?![\s])(.*?)\*\*/gm;
+    	var emphasizedRegex = /\*(?![\s])(.*?)\*/gm;
 
     	text = text.replace(bothRegex, function(wholeMatch, text) {
     		return "<strong><em>" + text + "</em></strong>";
@@ -83,13 +83,45 @@ function MarkdownProcessor(){
     }
 
     function handleParagraphs(text) {
-    	var paragraphRegex = /^[^\*^\n^\d^#].*$/gm;
+    	var paragraphRegex = /^(?!\*[ ])(?!\d\.[ ])(?!```)(?!<br\/>)[^\n#>].*$/gm;
 
     	text = text.replace(paragraphRegex, function(paragraph) {
     		return "<p class='marked'>" + paragraph + "</p>";
     	});
 
     	return text;
+    }
+
+    function handlePreformatted(text) {
+        var preRegex = /```\n([\d\D]*)\n```/gm;
+
+        text = text.replace(preRegex, function(wholeMatch, text) {
+            text = text.replace(/<p class='marked'>/gm, "");
+            text = text.replace(/<\/p>/gm, "");
+            return "<div class='pre-container'><pre class='marked'>" + text + "</pre></div>";
+        });
+
+        return text;
+    }
+
+    function handleInlineCode(text) {
+        var inlineCodeRegex = /`(.*?)`/gm;
+
+        text = text.replace(inlineCodeRegex, function(wholeMatch, text) {
+            return "<code class='marked'>" + text + "</code>";
+        });
+
+        return text;
+    }
+
+    function handleBlockQuote(text) {
+        var blockQuoteRegex = /^>(.*)/gm;
+
+        text = text.replace(blockQuoteRegex, function(wholeMatch, text) {
+            return "<blockquote class='marked'><p class='marked'>" + text + "</p></blockquote>";
+        });
+
+        return text;
     }
 
     this.convertToHtml = function (text) {
@@ -99,8 +131,7 @@ function MarkdownProcessor(){
 
 		text = text.replace(/\r\n/g, "\n"); // Windows --> Unix
 		text = text.replace(/\r/g, "\n"); // MacOS --> Unix
-		text = text.replace(/\n{2,}/g, "\n");
-		text = text.replace(/^[ \t]+$/mg, '');
+		text = text.replace(/\n{2,}/g, "\n<br/>\n");
 
 		text = handleParagraphs(text);
 
@@ -110,7 +141,10 @@ function MarkdownProcessor(){
 		text = handleEmphasizedAndStrong(text);
 		text = handleOrderedLists(text);
 		text = handleUnorderedLists(text);
+        text = handlePreformatted(text);
+        text = handleInlineCode(text);
+        text = handleBlockQuote(text);
 
-		return text;
+		return "<div class='marked'>" + text + "</div>";
 	};
 }
