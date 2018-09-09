@@ -312,4 +312,55 @@
 
 		return $nrows;
 	}
+
+	function updateDocumentMarkdown($documentId, $markdown) {
+		global $db;
+
+		$statement =
+			$db->createStatement(
+				"UPDATE Document ".
+				"SET Markdown = ? ".
+				"WHERE Id = ? "
+			);
+
+		$esit = $statement->bind_param(
+			"si",
+			$markdown,
+			$documentId
+		);
+
+		$statement->execute();
+
+		$statement->close();
+	}
+
+	function getDocumentMarkdown($documentId) {
+		global $db;
+
+		$statement = 
+			$db->createStatement(
+				"SELECT * ".
+				"FROM Document ".
+				"WHERE Id = ? ".
+				"AND Deleted = 0 "
+			);
+
+		$statement->bind_param(
+			"i",
+			$documentId
+		);
+
+		$statement->execute();
+
+		$result = $statement->get_result();
+
+		$nrows = $result->num_rows;
+
+		if(!$nrows){
+			$statement->close();
+			return null;
+		}
+
+		return $result->fetch_object()->Markdown;
+	}
 ?>
