@@ -6,13 +6,17 @@
 
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	
+	$remember = $_POST['remember'];
+
 	$userId = authenticateUser($username, $password);
 	echo $userId;
 	if($userId){
 		session_start();
 		setSession($userId, $username);
-		$cookieManager->setUserCookie($username);
+
+		if($remember)
+			$cookieManager->setUserCookie($username);
+		
 		goToEditor();
 		exit;
 	}
