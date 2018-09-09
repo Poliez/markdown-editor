@@ -3,6 +3,10 @@
 var manager = new TimedFunctionExecutionManager(uploadText);
 
 function timedUpload(text, documentId) {
+
+    if(typeof documentId == "undefined")
+        return;
+
     manager.startTimer(
         text,
         documentId

@@ -57,7 +57,7 @@
 
         $docs = $folders[$i]->Documents;
 
-        if($i == 0){
+        if($i == 0 && isset($docs[0]->Id)){
             $firstDocId = $docs[0]->Id;
             $firstDocMarkdown = $docs[0]->Markdown;
         }
