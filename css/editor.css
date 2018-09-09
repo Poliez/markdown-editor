@@ -1,5 +1,4 @@
 * {
-    padding: 0;
     margin: 0;
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box; 
@@ -52,7 +51,9 @@ aside {
 }
 
 .markdown {
-    background-color: rgba(0, 0, 0, 0.05); 
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2vh;
+    overflow: auto;
 }
 
 textarea {
