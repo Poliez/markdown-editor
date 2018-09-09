@@ -1,6 +1,6 @@
 "use strict";
 
-var manager = new TimedFunctionExecutionManager(uploadText);
+var uploadManager = new TimedFunctionExecutionManager(uploadText, 1500);
 var markdownProcessor = new MarkdownProcessor();
 
 function timedUpload(text, documentId) {
@@ -10,17 +10,17 @@ function timedUpload(text, documentId) {
 
     updateConverted();
 
-    manager.startTimer(
+    uploadManager.startTimer(
         text,
         documentId
     );
 }
 
-function TimedFunctionExecutionManager(func) {
+function TimedFunctionExecutionManager(func, timeout) {
     var markdownUploadTimer = undefined;
 
     this.func = func;
-
+    this.timeout = timeout;
     this.startTimer = function() {
         if (typeof markdownUploadTimer != "undefined")
             clearTimeout(markdownUploadTimer);
@@ -29,7 +29,7 @@ function TimedFunctionExecutionManager(func) {
             func(
                 Array.prototype.slice.call(arguments)
             ),
-            1500
+            timeout
         );
     }
 }
@@ -61,6 +61,7 @@ function downloadSelectedDocument(selectedDocumentId) {
 			return;
 
 		setEditorText(this.responseText);
+        updateConverted();
 	};
 
     request
@@ -86,7 +87,8 @@ function updateConverted() {
     var textArea = document.getElementById("writing-area");
     var htmlContainer = document.getElementById("converted-container");
 
-    htmlContainer.innerHTML = markdownProcessor.convertToHtml(textArea.value);
+    if(htmlContainer)
+        htmlContainer.innerHTML = markdownProcessor.convertToHtml(textArea.value);
 }
 
 window.onload = function(event){
