@@ -28,6 +28,7 @@ function selectFile(file, fileId) {
 	selectedDocumentId = fileId;
 	setElementParams(false, fileId);
 	selectElem(file);
+	document.getElementById("writing-area").disabled = false;
 }
 
 function setElementParams(isFile, fileId){
@@ -63,14 +64,18 @@ function refreshExplorer(explorerText){
 	selectedColor = undefined;
 	selectedElementId = undefined;
 	selectedIsFolder = undefined;
+	selectedDocumentId = undefined;
+
+	resetTextArea();
 }
 
-function newFolder() {
-	var folderName = prompt("Scegli un nome per la nuova cartella!");
+function resetTextArea() {
+	var textArea = document.getElementById("writing-area");
+	textArea.disabled = true;
+	textArea.value = "# Eccoti nell'editor!\nSeleziona un documento per cominciare a scrivere.\n\n*Se ancora non hai documenti puoi crearne uno selezionando ![Aggiungi Documento](./../images/add-note.svg)*";
+}
 
-	if(folderName == "")
-		return;
-
+function newFolder(folderName) {
 	var request = new XMLHttpRequest();
 
 	request.onreadystatechange = function () {
@@ -93,12 +98,7 @@ function newFolder() {
 	request.send();
 }
 
-function newNote() {
-	var documentName = prompt("Scegli un nome per il nuovo file! Se hai selezionato una cartella verrà inserito nella cartella selezionata (Oppure nella tua cartella 'I Miei Documenti').");
-
-	if(documentName == "")
-		return;
-
+function newDocument(documentName) {
 	var request = new XMLHttpRequest();
 
 	request.onreadystatechange = function () {
@@ -128,8 +128,7 @@ function newNote() {
 // 
 // }
 
-function deleteNote() {
-
+function deleteDocument() {
 	if(typeof selectedElementId == "undefined")
 		return;
 
@@ -157,4 +156,61 @@ function deleteNote() {
 		);
 
 	request.send();
+
+	hideDelete();
+}
+
+function showDelete() {
+	changeElementDisplayStyle("deletemodal", "block");
+}
+
+function hideDelete() {
+	changeElementDisplayStyle("deletemodal", "none");
+}
+
+function hideRequest() {
+	changeElementDisplayStyle("requestmodal", "none");
+}
+
+var isCreatingFolder = false;
+var isCreatingDocument = false;
+
+function showRequest(title, type) {
+	var modalTitle = document.getElementById("modal-title");
+	modalTitle.textContent = title;
+
+	isCreatingDocument 	= type === "document";
+	isCreatingFolder 	= type === "folder";
+
+	changeElementDisplayStyle("requestmodal", "block");
+}
+
+function executeExplorerOperation() {
+	var name = document.getElementById("name-field").value;
+
+	if(isCreatingFolder)
+		newFolder(name);
+
+	if(isCreatingDocument)
+		newDocument(name);
+
+	hideRequest();
+	document.getElementById("name-field").value = "";
+}
+
+window.onload = function(event){
+    var requestmodal = document.getElementById("requestmodal");
+    var infomodal = document.getElementById("infomodal");
+    var deletemodal = document.getElementById("deletemodal");
+
+    window.onclick = function(event) { 
+        if(event.target == requestmodal)
+            requestmodal.style.display = "none";
+
+        if(event.target == infomodal)
+            infomodal.style.display = "none";
+
+        if(event.target == deletemodal)
+            deletemodal.style.display = "none";
+    }
 }
