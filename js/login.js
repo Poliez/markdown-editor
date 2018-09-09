@@ -18,20 +18,10 @@ function hideRegistrationForm() {
     changeElementDisplayStyle("registrationform", "none");
 }
 
-function changeElementDisplayStyle(elementId, displayStyle) {
-
-    if (typeof elementId !== "string")
-        throw "elementId is not a string!";
-
-    if (typeof displayStyle !== "string")
-        throw "displayStyle is not a string!";
-
-    document.getElementById(elementId).style.display = displayStyle;
-}
-
 window.onload = function(event){
     var loginForm = document.getElementById("loginform");
     var registrationForm = document.getElementById("registrationform");
+    var infomodal = document.getElementById("infomodal");
 
     var password = document.getElementById("password");
     var confirm_password = document.getElementById("confirm");
@@ -42,8 +32,12 @@ window.onload = function(event){
     window.onclick = function(event) { 
         if(event.target == loginForm)
             loginForm.style.display = "none";
+
         if(event.target == registrationForm)
             registrationForm.style.display = "none";
+
+        if(event.target == infomodal)
+            infomodal.style.display = "none";
     }
 
     function validatePassword(){
