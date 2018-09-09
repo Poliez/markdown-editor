@@ -12,6 +12,8 @@ body {
     background: #eee;
     height: 90vh;
     padding: 5vh;
+    text-align: left;
+    font-family: Ubuntu, Arial, Helvetica, sans-serif;
 }
 
 h3 {
@@ -23,6 +25,10 @@ h3 {
 .flex-container {
     display: flex;
     flex-wrap: nowrap;
+}
+
+.flex-space-around {
+    justify-content: space-around;
 }
 
 .editor-element {
@@ -84,19 +90,22 @@ div.file:hover {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
-#explorer {
+.explorer {
     border-collapse: collapse;
     width: 100%;
 }
 
-div.explorer-operations {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-}
-
 .operation {
     margin: 1vh;
+}
+
+.confirm,
+.cancel {
+    width: 45%;
+}
+
+.cancel {
+    background-color: #f44336;
 }
 
 div.file:nth-of-type(odd) {
