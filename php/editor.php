@@ -4,6 +4,7 @@
 	<title>Markdown Editor</title>
     <link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/editor.css" />
+    <script src="./../js/markdown-processor.js"></script>
     <script src="./../js/util/displayUtil.js"></script>
     <script src="./../js/explorer.js"></script>
 </head>
@@ -28,7 +29,7 @@
 
     echo "</aside>";
 
-    echo "<textarea id='writing-area' onchange='timedUpload(this.value, selectedDocumentId);' class='editor-element writing'>";
+    echo "<textarea id='writing-area' onKeyPress='timedUpload(this.value, selectedDocumentId);' class='editor-element writing'>";
 
         echo "$firstDocMarkdown";
 
