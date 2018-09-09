@@ -96,7 +96,7 @@ div.explorer-operations {
 }
 
 .operation {
-    margin: 2vh;
+    margin: 1vh;
 }
 
 div.file:nth-of-type(odd) {
