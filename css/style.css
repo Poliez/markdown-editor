@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.05);
     font-family: Ubuntu, Arial, Helvetica, sans-serif;
 }
 
@@ -85,7 +86,8 @@ span.psw {
 }
 
 .info {
-    width: 70vw;
+    width: 50vw;
+    margin: auto;
 }
 
 .loginHead{

@@ -27,6 +27,7 @@
     <title>Real-time Markdown Editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/marked.css" />
     <script src="js/util/displayUtil.js"></script>
     <script src="js/login.js"></script>
 </head>
@@ -35,8 +36,10 @@
 
     <div class="center">
         <h1 onclick="showInfoModal()">Benvenuto a Real-time Markdown Editor! <img src="images/info.svg" alt="info"/></h1><br/><br/><br/><br/>
-        <button onclick="showLoginForm()" class="mainbtn">Accedi</button>
-        <button onclick="showRegistrationForm()" class="mainbtn">Registrati</button>
+        <div class="center-inside">
+            <button onclick="showLoginForm()" class="mainbtn">Accedi</button>
+            <button onclick="showRegistrationForm()" class="mainbtn">Registrati</button>
+        </div>
     </div>
 
     <!-- Login Modal -->

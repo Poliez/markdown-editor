@@ -15,7 +15,7 @@ body {
     font-family: Ubuntu, Arial, Helvetica, sans-serif;
 }
 
-h3 {
+h3.loginHead {
     text-align: center;
     padding: 20px 0 12px 0;
     margin: 0;
@@ -28,6 +28,7 @@ h3 {
 
 .flex-space-around {
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .editor-element {
@@ -54,6 +55,7 @@ aside {
     background-color: rgba(0, 0, 0, 0.05);
     padding: 2vh;
     overflow: auto;
+    text-align: center;
 }
 
 textarea {
