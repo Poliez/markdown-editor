@@ -17,7 +17,7 @@
 
 ?>
 <!doctype html>
-<html>
+<html lang="it-IT">
 
 <head>
     <!-- Consente ai legacy browsers di applicare stili ai tag sconosciuti -->

@@ -74,7 +74,7 @@ span.psw {
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
+    padding: 1px;
 }
 
 .modal-content {
@@ -87,7 +87,9 @@ span.psw {
 
 .info {
     width: 50vw;
+    height: 99vh; 
     margin: auto;
+    overflow: auto;
 }
 
 .loginHead{

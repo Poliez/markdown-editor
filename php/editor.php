@@ -57,7 +57,7 @@
     <div id="requestmodal" class="modal">
         <div class="modal-content animate" >
             <div class="container">
-                <h2 id="modal-title" class="loginHead"></h2>
+                <h2 id="modal-title" class="loginHead">.</h2>
                 <span onclick="hideRequest()" class="close" title="Chiudi">&times;</span>
                 <input id="name-field" type="text" placeholder="Nome" />
             </div>
